@@ -1,0 +1,75 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>The HTML5 Herald</title>
+    <meta name="description" content="The HTML5 Herald">
+    <meta name="author" content="SitePoint">
+
+    <link rel="manifest" href="/manifest.json">
+</head>
+
+<body>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    const config = {
+        apiKey: "AIzaSyBJxdY_0VeoQeIElJZI066YewUarEiT0h8",
+        authDomain: "push-test-2565e.firebaseapp.com",
+        databaseURL: "https://push-test-2565e.firebaseio.com",
+        projectId: "push-test-2565e",
+        storageBucket: "push-test-2565e.appspot.com",
+        messagingSenderId: "685799503083"
+    }
+    firebase.initializeApp(config)
+
+    // Retrieve Firebase Messaging object.
+    const messaging = firebase.messaging()
+
+    // Get Instance ID token. Initially this makes a network call, once retrieved
+    // subsequent calls to getToken will return from cache.
+    // Get Instance ID token. Initially this makes a network call, once retrieved
+    // subsequent calls to getToken will return from cache.
+    messaging.getToken()
+        .then(function(currentToken) {
+            if (currentToken) {
+                alert(currentToken)
+//                sendTokenToServer(currentToken);
+//                updateUIForPushEnabled(currentToken);
+            } else {
+                // Show permission request.
+                console.log('No Instance ID token available. Request permission to generate one.')
+                // Show permission UI.
+//                updateUIForPushPermissionRequired();
+//                setTokenSentToServer(false);
+            }
+        })
+        .catch(function(err) {
+            console.log('An error occurred while retrieving token. ', err)
+//            showToken('Error retrieving Instance ID token. ', err);
+//            setTokenSentToServer(false);
+        })
+
+    // Callback fired if Instance ID token is updated.
+    messaging.onTokenRefresh(function() {
+        messaging.getToken()
+            .then(function(refreshedToken) {
+                console.log('Token refreshed.')
+                // Indicate that the new Instance ID token has not yet been sent to the
+                // app server.
+//                setTokenSentToServer(false);
+                // Send Instance ID token to app server.
+//                sendTokenToServer(refreshedToken);
+                // ...
+            })
+            .catch(function(err) {
+                console.log('Unable to retrieve refreshed token ', err)
+//                showToken('Unable to retrieve refreshed token ', err);
+            })
+    })
+
+</script>
+</body>
+</html>
