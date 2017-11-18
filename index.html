@@ -85,14 +85,6 @@
     //   `messaging.setBackgroundMessageHandler` handler.
     messaging.onMessage(function(payload) {
         console.log('Received foreground message ', payload)
-
-        const notificationTitle = 'Foreground Message Title';
-        const notificationOptions = {
-            body: payload,
-            icon: '/firebase-logo.png'
-        }
-
-        return self.registration.showNotification(notificationTitle, notificationOptions);
     })
 
 </script>
