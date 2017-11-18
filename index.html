@@ -28,16 +28,6 @@
     // Retrieve Firebase Messaging object.
     const messaging = firebase.messaging()
 
-    messaging.requestPermission()
-        .then(function() {
-            console.log('Notification permission granted.');
-            // TODO(developer): Retrieve a Instance ID token for use with FCM.
-            // ...
-        })
-        .catch(function(err) {
-            console.log('Unable to get permission to notify. ', err)
-        })
-
     // Get Instance ID token. Initially this makes a network call, once retrieved
     // subsequent calls to getToken will return from cache.
     // Get Instance ID token. Initially this makes a network call, once retrieved
@@ -51,6 +41,15 @@
             } else {
                 // Show permission request.
                 console.log('No Instance ID token available. Request permission to generate one.')
+                messaging.requestPermission()
+                    .then(function() {
+                        console.log('Notification permission granted.');
+                        // TODO(developer): Retrieve a Instance ID token for use with FCM.
+                        // ...
+                    })
+                    .catch(function(err) {
+                        console.log('Unable to get permission to notify. ', err)
+                    })
                 // Show permission UI.
 //                updateUIForPushPermissionRequired();
 //                setTokenSentToServer(false);
